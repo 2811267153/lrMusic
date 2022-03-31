@@ -5,8 +5,7 @@
 </template>
 
 <script>
-import "xgplayer";
-import Music from "xgplayer-music";
+import Aplater from 'vue-aplayer'
 export default {
   name: "player",
   data(){
@@ -16,24 +15,13 @@ export default {
     }
   },
   mounted() {
-    this.$bus.$on('upData', (data) => {
-      if(this.player == null){
-        this.player = new Music({
-          id: 'player',
-          url: [
-            {
-              src: data.data[0].url
-            }
-          ]
-        })
-        console.log()
-      }else {
-        console.log(this.player.config.url = null)
-      }
-
-    })
 
   },
+  methods: {
+  },
+  components: {
+    Aplater
+  }
 }
 </script>
 

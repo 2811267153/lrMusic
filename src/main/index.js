@@ -27,7 +27,7 @@ function createWindow () {
     frame: false,
     webPreferences: {
       nodeIntegration: true,
-      webSecurity: false // 允许跨域
+      webSecurity: true // 允许跨域
     }
   })
 

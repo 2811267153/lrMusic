@@ -9,9 +9,10 @@ import rankList from "../views/home/rankList";
 import songsList from "../views/home/songsList";
 import detail from "../views/home/detail";
 import detailArtist from "../views/home/detailArtist";
+import artistList from "../views/home/artistList";
 Vue.use(Router)
 
-export default new Router({
+ const router =  new Router({
   routes: [
     {
       path: '/',
@@ -28,8 +29,14 @@ export default new Router({
         {name: 'songsList',path: '/home/songsList', component: songsList},
         {name: 'detail',path: '/home/detail', component: detail},
         {name: 'artist',path: '/home/detailArtist', component: detailArtist},
+        {name: 'artistList',path: '/home/artistList', component: artistList},
       ]
 
     }
   ]
 })
+router.beforeEach((to, from, next) => {
+  console.log(to)
+  return next()
+})
+export default router

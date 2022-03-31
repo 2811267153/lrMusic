@@ -19,6 +19,14 @@
           </div>
         </div>
       </div>
+      <h2>全球榜</h2>
+      <div class="official-global">
+        <div class="officials-item" @click="toDetail(item.id)" v-for="item in list.slice(5,list.length - 1)">
+          <img :src="item.coverImgUrl" alt="">
+          <p><span>{{item.name}}</span></p>
+          <div class="tags">{{item.playCount | getRoundingData}}</div>
+        </div>
+      </div>
     </div>
 
   </div>
@@ -55,6 +63,9 @@ export default {
   methods: {
     player(id){
       console.log(id)
+    },
+    toDetail(id){
+      this.$router.push({name: 'detail', query:{id: id}})
     }
   }
 
@@ -139,13 +150,12 @@ export default {
 }
 .tags{
   position: absolute;
-  right: 0;
+  right: 10px;
   top: 0;
   z-index: 9;
   padding: 5px;
   border-radius: 10px;
   color: #f2f2f2;
-  background-color: var(--active-c);
 }
 .mask{
   text-align: center;
@@ -185,5 +195,39 @@ export default {
   color: #ea4c89;
   cursor: pointer;
   transition: all 0.1s !important;
+}
+.officials-item{
+  position: relative;
+  width: 200px;
+  text-align: center;
+  overflow: hidden;
+}
+.official-global{
+  display: grid;
+  grid-template-rows: repeat(5, 1fr);
+  grid-template-columns: repeat(5, 1fr);
+
+}
+.officials-item span{
+  display: inline-block;
+  width: 0;
+  height: 0;
+  overflow: hidden;
+}
+.officials-item{
+  margin-top: 20px;
+
+}
+.officials-item img{
+  width: 100%;
+  height: 200px;
+  border-radius: 20px;
+}
+.officials-item p{
+  height: 20px;
+}
+.officials-item:hover span{
+  width: 100%;
+  height: 100%;
 }
 </style>

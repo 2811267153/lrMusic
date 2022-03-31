@@ -81,6 +81,8 @@ export default {
 
 .container {
   flex: 1;
+  height: 680px;
+  overflow: scroll;
   padding: 0 15px;
 }
 .container-item {

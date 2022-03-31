@@ -114,6 +114,7 @@ export default {
     cellClick(row){
       getSearchUrl(row.id).then(res => {
         this.$bus.$emit('upData', res.data)
+        console.log(res)
       }).catch( e => {
         this.$message({
           message: e

@@ -129,6 +129,16 @@ export function getDailyList() {
     });
 }
 
+//获取歌手分类
+export function getSingerCategory(limit, offset, type, area, initial) {
+    return request({
+        url: '/artist/list',
+        params: {
+            limit, offset, type, area, initial
+        }
+    });
+}
+
 
 
 export function getLogin(phone, password) {

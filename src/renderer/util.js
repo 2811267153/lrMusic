@@ -12,10 +12,7 @@ export function formatDate(time) {
     return YY + "-" + MM + "-" + DD + " " + hh + ":" + mm + ":" + ss;
 }
 export function roundingData(data){
-    if(data > 1000000000){
-        return  (data / 100000000).toFixed(2) + '亿次'
-    }
-    else if(data > 10000){
+     if(data > 10000){
         return  parseInt(data / 10000) + '万'
     }else {
         return data
