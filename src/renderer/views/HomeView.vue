@@ -2,7 +2,7 @@
 	<div id="home">
 		<div class="main">
       <nav-path></nav-path>
-			<div v-if="false" class="container">
+			<div v-if="Object.keys(songsData).length !== 0" class="container">
         <div class="container-item" v-for="(item, i) in searchData.songs" @click="songPlayer(item)">
           <div class="index">{{i}}</div>
           <div class="songs-name">{{item.name}}</div>
@@ -21,6 +21,7 @@
             <i></i>
           </router-link>
           <router-view/>
+          {{songsData}}
         </div>
       </div>
 		</div>
@@ -65,8 +66,13 @@ export default {
     }
   },
   mounted() {
-    this.$bus.$on('isNull', () => {
-      this.$store.dispatch('searchData', [])
+    // this.$bus.$on('isNull', () => {
+    //   this.$store.dispatch('searchData', [])
+    //   console.log(this.songsData)
+    // })
+    this.$bus.on('searchData', (data) => {
+      this.songsData = data
+
     })
   }
 };

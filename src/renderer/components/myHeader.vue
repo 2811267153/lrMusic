@@ -44,14 +44,12 @@ export default {
       }
     },
     getSearch(search){
-
-      clearTimeout(timer);
-      const timer = setTimeout(() => {
-        getSearch(search, 20, 1).then(res => {
-          this.songsData = res.data.result
-          this.$store.dispatch('searchData', this.songsData)
-        })
-      }, 1000)
+      getSearch(search, 20, 1).then(res => {
+        this.songsData = res.data.result
+        console.log(this.songsData)
+        this.$bus.$emit('searchData', this.songsData)
+        // this.$store.dispatch('searchData', this.songsData)
+      })
     },
     minimizeWin() {
       console.log('aaa')

@@ -1,8 +1,8 @@
 Arguments: 
-  C:\Program Files\nodejs\node.exe C:\Users\徐泽森\AppData\Roaming\npm\node_modules\yarn\bin\yarn.js add vue-aplayer
+  C:\Program Files\nodejs\node.exe C:\Users\徐泽森\AppData\Roaming\npm\node_modules\yarn\bin\yarn.js add electron-build
 
 PATH: 
-  C:\Program Files (x86)\Common Files\Oracle\Java\javapath;C:\WINDOWS\system32;C:\WINDOWS;C:\WINDOWS\System32\Wbem;C:\WINDOWS\System32\WindowsPowerShell\v1.0\;C:\WINDOWS\System32\OpenSSH\;D:\Program Files\Git\cmd;C:\Program Files\nodejs\;D:\Program Files (x86)\Tencent\微信web开发者工具\dll;C:\Program Files\python;C:\Program Files\python\Scripts;;D:\BtSoft\panel\script;C:\Program Files\dotnet\;C:\Program Files\MySQL\MySQL Shell 8.0\bin\;C:\Users\徐泽森\AppData\Local\Microsoft\WindowsApps;D:\Users\徐泽森\AppData\Local\Programs\Microsoft VS Code\bin;D:\flutterSDK\flutter\bin;C:\Users\徐泽森\AppData\Roaming\npm;C:\Windows\System32\cmd.exe;C:\Program Files\Bandizip\;D:\Program Files\JetBrains\WebStorm 2021.3.2\bin;D:\electron\lrs\node_modules\.bin
+  C:\Program Files (x86)\Common Files\Oracle\Java\javapath;C:\WINDOWS\system32;C:\WINDOWS;C:\WINDOWS\System32\Wbem;C:\WINDOWS\System32\WindowsPowerShell\v1.0\;C:\WINDOWS\System32\OpenSSH\;D:\Program Files\Git\cmd;C:\Program Files\nodejs\;D:\Program Files (x86)\Tencent\微信web开发者工具\dll;C:\Program Files\python;C:\Program Files\python\Scripts;;D:\BtSoft\panel\script;C:\Program Files\dotnet\;C:\Program Files\MySQL\MySQL Shell 8.0\bin\;C:\Users\徐泽森\AppData\Local\Microsoft\WindowsApps;D:\Users\徐泽森\AppData\Local\Programs\Microsoft VS Code\bin;D:\flutterSDK\flutter\bin;C:\Users\徐泽森\AppData\Roaming\npm;C:\Windows\System32\cmd.exe;C:\Program Files\Bandizip\;D:\Program Files\JetBrains\WebStorm 2021.3.2\bin;
 
 Yarn version: 
   1.22.18
@@ -14,7 +14,7 @@ Platform:
   win32 x64
 
 Trace: 
-  Error: EBUSY: resource busy or locked, unlink 'D:\electron\lrs\node_modules\electron\dist\content_resources_200_percent.pak'
+  Error: EBUSY: resource busy or locked, unlink 'D:\electron\lrs\node_modules\electron\dist\blink_image_resources_200_percent.pak'
 
 npm manifest: 
   {
