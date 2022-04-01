@@ -57,9 +57,9 @@ function createWindow () {
     // ToDo 关闭前差一个弹窗，询问是否退出程序 *************；
     mainWindow.close();// 停止后台服务
   });
-  if (process.env.NODE_ENV === 'development') {
-           BrowserWindow.addDevToolsExtension("/Users/zhang/Library/Application Support/Google/Chrome/Default/Extensions/nhdogjmejiglipccpnnnanhbledajbpd/3.1.2_0");
-        }
+  // if (process.env.NODE_ENV === 'development') {
+  //          BrowserWindow.addDevToolsExtension("/Users/zhang/Library/Application Support/Google/Chrome/Default/Extensions/nhdogjmejiglipccpnnnanhbledajbpd/3.1.2_0");
+  //       }
 
 }
 

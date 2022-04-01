@@ -3,7 +3,7 @@
 		<div class="main">
       <nav-path></nav-path>
 			<div v-if="Object.keys(songsData).length !== 0" class="container">
-        <div class="container-item" v-for="(item, i) in searchData.songs" @click="songPlayer(item)">
+        <div class="container-item" v-for="(item, i) in songsData.songs" @click="songPlayer(item)">
           <div class="index">{{i}}</div>
           <div class="songs-name">{{item.name}}</div>
           <div v-for="artists in item.artists">
@@ -14,14 +14,13 @@
         </div>
 
       </div>
-      <div  class="container" >
+      <div  class="container" v-else>
         <div class="sub-nav">
           <router-link class="sub-nav-item" active-class="active" :to="'/home/'+ item.url" v-for="item in subNav">
             {{item.name}}
             <i></i>
           </router-link>
           <router-view/>
-          {{songsData}}
         </div>
       </div>
 		</div>
@@ -61,18 +60,17 @@ export default {
       getSearchUrl(item.id).then(res => {
         this.musicInfo = res.data
         this.$bus.$emit('upData', this.musicInfo)
-        this.$store.commit('musicInfo'. this.musicInfo)
       })
     }
   },
   mounted() {
-    // this.$bus.$on('isNull', () => {
-    //   this.$store.dispatch('searchData', [])
-    //   console.log(this.songsData)
-    // })
-    this.$bus.on('searchData', (data) => {
+    this.$bus.$on('isNull', () => {
+      // this.$store.dispatch('searchData', [])
+      this.songsData = []
+    })
+    this.$bus.$on('searchData', (data) => {
       this.songsData = data
-
+      console.log(this.songsData)
     })
   }
 };

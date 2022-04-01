@@ -23,13 +23,13 @@ Vue.use(Router)
       redirect: '/home/recommend',
       component: homeView,
       children: [
-        {name: 'recommend',path: '/home/recommend', component: recommend,},
-        {name: 'latestMusic',path: '/home/latestMusic', component: latestMusic},
-        {name: 'rankList',path: '/home/rankList', component: rankList},
-        {name: 'songsList',path: '/home/songsList', component: songsList},
-        {name: 'detail',path: '/home/detail', component: detail},
-        {name: 'artist',path: '/home/detailArtist', component: detailArtist},
-        {name: 'artistList',path: '/home/artistList', component: artistList},
+        {name: 'recommend',path: '/home/recommend', component: recommend,meta:{keepAlive: true}},
+        {name: 'latestMusic',path: '/home/latestMusic', component: latestMusic, meta:{keepAlive: true}},
+        {name: 'rankList',path: '/home/rankList', component: rankList, meta:{keepAlive: true}},
+        {name: 'songsList',path: '/home/songsList', component: songsList, meta:{keepAlive: true}},
+        {name: 'detail',path: '/home/detail', component: detail, meta:{keepAlive: false}},
+        {name: 'artist',path: '/home/detailArtist', component: detailArtist, meta:{keepAlive: false}},
+        {name: 'artistList',path: '/home/artistList', component: artistList, meta:{keepAlive: true}} ,
       ]
 
     }

@@ -16,7 +16,7 @@
 </template>
 
 <script>
-import {getSearchUrl} from "@/network/search";
+import {getSearchUrl} from "../../network/search";
 
 export default {
   name: "recommendSong",
@@ -49,8 +49,9 @@ export default {
   font-size: 21px;
 }
 #songList_warp {
-  display: flex;
-  flex-wrap: wrap;
+  display: grid;
+  /*flex-wrap: wrap;*/
+  grid-template-columns:1fr 1fr;
   justify-content: space-between;
 
 }
@@ -58,9 +59,10 @@ export default {
 .songList-item {
   position: relative;
   padding: 0 10px 0 0;
-  width: 30%;
-  display: flex;
-  margin: 10px 0;
+  /*width: 30%;*/
+  display: grid;
+  margin: 10px 20px;
+  grid-template-columns: 200px auto;
   overflow: hidden;
   border-radius: 10px;
   background-color: #f2f2f2;

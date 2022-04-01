@@ -15,7 +15,9 @@ export default {
     }
   },
   mounted() {
-
+    this.$bus.$on('upData', (data) => {
+      console.log(data)
+    })
   },
   methods: {
   },

@@ -138,6 +138,15 @@ export function getSingerCategory(limit, offset, type, area, initial) {
         }
     });
 }
+//新歌速递
+export function getNewSong(type) {
+    return request({
+        url: '/top/song',
+        params: {
+            type
+        }
+    });
+}
 
 
 

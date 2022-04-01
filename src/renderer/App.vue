@@ -1,9 +1,8 @@
 <template>
   <div id="apps">
     <my-header @searchData="search"/>
-    <keep-alive include="home">
-      <router-view />
-
+    <keep-alive >
+      <router-view v-if="$route.meta.keepAlive === true"/>
     </keep-alive>
     <player class="player"></player>
   </div>

@@ -18,3 +18,16 @@ export function roundingData(data){
         return data
     }
 }
+export function formatTime(msTime) {
+    let time = msTime / 1000;
+
+    let minute = Math.floor(time / 60) % 60;
+
+    minute = minute.toString().padStart(2, "0");
+
+    let second = Math.floor(time) % 60;
+
+    second = second.toString().padStart(2, "0");
+
+    return `${minute}:${second}`;
+}

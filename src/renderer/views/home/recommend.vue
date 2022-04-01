@@ -19,7 +19,8 @@ import recommendItem from "./recommendItem";
 import recommendSong from "./recommendSong";
 import recommendArtist from "./recommendArtist";
 
-import {getBanner, getResource, getLogin, getBoutique,getRecommendSong, getRecommendArtist} from "@/network/home";
+import {getBanner, getResource, getLogin, getBoutique,getRecommendSong, getRecommendArtist} from "../../network/home.js";
+
 export default {
   name: "recommend",
   data(){
@@ -42,18 +43,24 @@ export default {
     recommendArtist
   },
   created() {
+    this.getLogin(this.form.phone, this.form.password)
     this._getBanner(this.type)
     if (this.isLogin){
       this._getResource()
     }else {
       this._getBoutique(8)
     }
-    this._getRecommendSong(12)
-    this._gerRecommendArtist(14)
+    this._getRecommendSong(20)
+    this._gerRecommendArtist(18)
     getLogin(this.form.phone, this.form.password).then(res => {
     })
   },
   methods: {
+    getLogin(phone, password){
+      getLogin(phone, password).then(res => {
+        console.log(res)
+      })
+    },
     _getBanner(type){
       getBanner(type).then(res => {
         this.banners =res.data.banners
