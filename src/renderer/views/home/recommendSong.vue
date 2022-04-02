@@ -2,13 +2,13 @@
   <div class="recommend-music">
     <h2>最新音乐</h2>
     <div id="songList_warp">
-      <div class="songList-item" @click="toPlayer(item)" v-for="item in recommendSong">
+      <div class="songList-item" @click="toPlayer(item)" @dblclick="addToPlay(item)" v-for="item in recommendSong" :key="item.id">
         <el-image class="item-img" :src="item.picUrl"></el-image>
         <div class="mask"><i class="icon iconfont icon-bofang-01"></i></div>
         <div class="song-info">
           <p>{{ item.name }}</p>
           <p>专辑: <i class="icon iconfont icon-zhuanji"></i>{{ item.song.album.name }}</p>
-          <p><span v-for="artist in item.song.artists">{{ artist.name }}</span></p>
+          <p><span v-for="artist in item.song.artists" :key="artist.name">{{ artist.name }}</span></p>
         </div>
       </div>
     </div>
@@ -31,13 +31,16 @@ export default {
   methods: {
     toPlayer(item) {
       getSearchUrl(item.id).then(res => {
-        this.$bus.$emit('upData', res.data)
+        this.$bus.$emit('upData', [res.data.data[0].url, item])
       }).catch(e => {
         this.$message({
           message: e
         })
       })
     },
+    addToPlay(item){
+      this.$store.dispatch('addToPlay', item)
+    }
   }
 
 }

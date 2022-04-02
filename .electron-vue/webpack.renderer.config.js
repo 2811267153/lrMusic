@@ -176,6 +176,25 @@ if (process.env.NODE_ENV === 'production') {
     }),
     new webpack.LoaderOptionsPlugin({
       minimize: true
+    }),
+    new CopyWebpackPlugin([
+      {
+        from: path.join(__dirname, '../static'),//需要复制的文件路径
+        to: path.join(__dirname, '../dist/electron/static'),//复制到哪里
+        ignore: ['.*']//复制的文件类型
+      },
+      {
+        //这是新添加的数组，把对应的字体路径复制到正确路径中就OK了
+        from:path.join(__dirname,'../fonts'),
+        to:path.join(__dirname,'../dist/electron/fonts'),
+        ignore:['.*']
+      }
+    ]),
+    new webpack.DefinePlugin({
+      'process.env.NODE_ENV': '"production"'
+    }),
+    new webpack.LoaderOptionsPlugin({
+      minimize: true
     })
   )
 }

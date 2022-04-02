@@ -4,7 +4,10 @@
     <keep-alive >
       <router-view v-if="$route.meta.keepAlive === true"/>
     </keep-alive>
+    <router-view v-if="!$route.meta.keepAlive === true"/>
+
     <player class="player"></player>
+
   </div>
 </template>
 
