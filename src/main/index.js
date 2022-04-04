@@ -1,4 +1,4 @@
-import { app, BrowserWindow,ipcMain } from 'electron'
+import {app, BrowserWindow, ipcMain} from 'electron'
 import '../renderer/store'
 
 /**
@@ -6,79 +6,78 @@ import '../renderer/store'
  * https://simulatedgreg.gitbooks.io/electron-vue/content/en/using-static-assets.html
  */
 if (process.env.NODE_ENV !== 'development') {
-  global.__static = require('path').join(__dirname, '/static').replace(/\\/g, '\\\\')
-}
+    global.__static = require('path').join(__dirname, '/static').replace(/\\/g, '\\\\')
 
+}
 let mainWindow
 const winURL = process.env.NODE_ENV === 'development'
-  ? `http://localhost:9080`
-  : `file://${__dirname}/index.html`
+    ? `http://localhost:9080`
+    : `file://${__dirname}/index.html`
 
-function createWindow () {
-  /**
-   * Initial window options
-   */
-  mainWindow = new BrowserWindow({
-    height: 800,
-    useContentSize: true,
-    width: 1500,
+function createWindow() {
+    /**
+     * Initial window options
+     */
 
-    resizable: false,
-    frame: false,
-    webPreferences: {
-      nodeIntegration: true,
-      webSecurity: true // 允许跨域
-    }
-  })
+    mainWindow = new BrowserWindow({
+        height: 800,
+        useContentSize: true,
+        width: 1500,
 
-  mainWindow.loadURL(winURL)
+        resizable: false,
+        frame: false,
+        webPreferences: {
+            nodeIntegration: true,
+            webSecurity: true // 允许跨域
+        }
+    })
 
-  mainWindow.on('close', () => {
-    mainWindow = null
-  })
-  mainWindow.on("close", () => {
-    mainWindow = null;
-    app.quit();
-  });
+    mainWindow.loadURL(winURL)
 
-  ipcMain.on('min',function(){ // 收到渲染进程的窗口最小化操作的通知，并调用窗口最小化函数，执行该操作
-    mainWindow.minimize();
-  })
+    mainWindow.on('close', () => {
+        mainWindow = null
+    })
+    mainWindow.on("close", () => {
+        mainWindow = null;
+        app.quit();
+    });
 
-  ipcMain.on('max',function () {
-    if(mainWindow.isMaximized()){
-      mainWindow.minimize();
-    }else{
-      mainWindow.maximize();
-    }
-  })
+    ipcMain.on('min', function () { // 收到渲染进程的窗口最小化操作的通知，并调用窗口最小化函数，执行该操作
+        mainWindow.minimize();
+    })
 
-  ipcMain.on("close", function(_event) {
-    // ToDo 关闭前差一个弹窗，询问是否退出程序 *************；
-    mainWindow.close();// 停止后台服务
-  });
-  // if (process.env.NODE_ENV === 'development') {
-  //          BrowserWindow.addDevToolsExtension("/Users/zhang/Library/Application Support/Google/Chrome/Default/Extensions/nhdogjmejiglipccpnnnanhbledajbpd/3.1.2_0");
-  //       }
+    ipcMain.on('max', function () {
+        if (mainWindow.isMaximized()) {
+            mainWindow.minimize();
+        } else {
+            mainWindow.maximize();
+        }
+    })
 
+    ipcMain.on("close", function (_event) {
+        // ToDo 关闭前差一个弹窗，询问是否退出程序 *************；
+        mainWindow.close();// 停止后台服务
+    });
+    // if (process.env.NODE_ENV === 'development') {
+    //          BrowserWindow.addDevToolsExtension("/Users/zhang/Library/Application Support/Google/Chrome/Default/Extensions/nhdogjmejiglipccpnnnanhbledajbpd/3.1.2_0");
+    //       }
 }
-
-
 
 
 app.on('ready', createWindow)
 
 app.on('window-all-closed', () => {
-  if (process.platform !== 'darwin') {
-    app.quit()
-  }
+    if (process.platform !== 'darwin') {
+        app.quit()
+    }
+
 })
 
 
 app.on('activate', () => {
-  if (mainWindow === null) {
-    createWindow()
-  }
+    if (mainWindow === null) {
+        createWindow()
+    }
 })
 
 /**

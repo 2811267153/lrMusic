@@ -1,25 +1,26 @@
-const state = {
-  addToPlay: []
-}
-
-const mutations = {
-  addToPlay(state, playList){
-    this.state.addToPlay = playList
-  }
-}
-
-const actions = {
-  someAsyncTask ({ commit }) {
-    // do something async
-    commit('INCREMENT_MAIN_COUNTER')
-  },
-  addToPlay(context, playList){
-    context.commit('addToPlay', playList)
-  }
-}
-
-export default {
-  state,
-  mutations,
-  actions
-}
+// const state = {
+//   addToPlayList: []
+// }
+//
+// const mutations = {
+//   addToPlay(state, playList){
+//     console.log(this.state)
+//     this.state.Counter.addToPlayList.push(playList)
+//   }
+// }
+//
+// const actions = {
+//   someAsyncTask ({ commit }) {
+//     // do something async
+//     commit('INCREMENT_MAIN_COUNTER')
+//   },
+//   // addToPlay(context, playList){
+//   //   context.commit('addToPlays', playList)
+//   // }
+// }
+//
+// export default {
+//   state,
+//   mutations,
+//   actions
+// }

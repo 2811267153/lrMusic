@@ -1,5 +1,7 @@
 import axios from "axios";
-// import { Loading } from 'element-ui';
+import Vue from "vue";
+const mv = Vue.prototype.$bus = new Vue()// import { Loading } from 'element-ui';
+
 // const loading={ //loading加载对象
 //     loadingInstance: null,
 //     //打开加载
@@ -29,16 +31,15 @@ export function request(config){
         timeout: 15000,
         withCredentials: true
     })
-    // instance.interceptors.request.use(config => {
-    //     loading.open() //打开加载窗口
-    //         return config
-    // }, error => {
-    //     console.log('err')
-    // })
-    // instance.interceptors.response.use(config => {
-    //     loading.close()
-    //     return config
-    // })
+    instance.interceptors.request.use(config => {
+        mv.$bus.$emit('loading', true)
+            return config
+    }, error => {
+        console.log('err')
+    })
+    instance.interceptors.response.use(config => {
+        return config
+    })
 
     return instance(config)
 }

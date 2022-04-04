@@ -24,22 +24,40 @@ export default {
     recommendSong: {
       type: Array,
       default() {
-        return []
+        return {
+          timer: ''
+        }
       }
     }
   },
   methods: {
     toPlayer(item) {
-      getSearchUrl(item.id).then(res => {
-        this.$bus.$emit('upData', [res.data.data[0].url, item])
-      }).catch(e => {
-        this.$message({
-          message: e
+      if (this.timer){
+        clearTimeout(this.timer)
+        this.timer = null
+      }
+      this.timer = setTimeout(() => {
+        console.log('-------------------')
+        getSearchUrl(item.id).then(res => {
+          this.$bus.$emit('upData', [res.data.data[0].url, item])
+        }).catch(e => {
+          this.$message({
+            message: e
+          })
         })
-      })
+      }, 300)
+
     },
     addToPlay(item){
-      this.$store.dispatch('addToPlay', item)
+      if (this.timer){
+        clearTimeout(this.timer)
+        this.timer = null
+      }
+      this.$store.commit('addToPlay', item)
+      this.$message({
+        message: '已将歌曲添加到播放列表中'
+      })
+      console.log(this.$store.state)
     }
   }
 

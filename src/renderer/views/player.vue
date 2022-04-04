@@ -1,6 +1,6 @@
 <template>
-	<div id="player" @keyup.space="player" v-if="Object.keys(data).length != 0">
-		<audio ref="audio" autoplay @timeupdate="timeupdate" :src="data[0]"></audio>
+	<div id="player" v-if="Object.keys(data).length !=0">
+		<audio ref="audio" autoplay @timeupdate="timeupdate" :src="data[0]" @playing="playing"></audio>
 		<div class="progress">
 			<div class="progress-bar" :style="{ width: value }"></div>
 		</div>
@@ -19,7 +19,8 @@
 			<div class="icons">
 				<i class="icon iconfont icon-zuo-02"></i>
 
-				<i class="icon iconfont icon-zanting-01"></i>
+				<i v-if="player" class="icon iconfont icon-zanting-01"></i>
+				<i v-else class="icon iconfont icon-bofang-02"></i>
 				<i class="icon iconfont icon-you-02"></i>
 			</div>
 			<div class="icons fs">
@@ -27,7 +28,6 @@
 				<i class="icon iconfont icon-yinle-07"></i>
 			</div>
 		</div>
-		{{addPlayList}}
 	</div>
 </template>
 
@@ -41,18 +41,19 @@ export default {
 			duration: '00:00',
 			currentTime: '00:00',
 			value: '',
-			player: false,
+			player: true,
+      platList: []  //播放列表
 		};
 	},
 	mounted() {
 		this.$bus.$on('upData', (data) => {
-			console.log(data);
-			this.data = data;
-		});
+      this.data = data
+      this.$refs.audio.pause()
+    });
 		document.onkeyup = (event) => {
-			let key = window.event.keyCode;
-			if (key === 32) {
-				console.log(this);
+      // key.preventDefault()
+			if (event.code === 'Space') {
+        event.preventDefault()
 				if (this.player === true) {
 					this.$refs.audio.pause();
 					this.player = false;
@@ -70,12 +71,15 @@ export default {
 			this.value = (this.currentTime / this.duration) * 100 + '%';
 			console.log(this.$store.state);
 		},
+    playing(){
+      this.player = true
+    }
 	},
 	computed: {
 		addPlayList(){
 			return this.$store.state.addToPlay
 		}
-	}
+	},
 };
 </script>
 
