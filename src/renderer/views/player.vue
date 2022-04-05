@@ -1,5 +1,5 @@
 <template>
-	<div id="player" v-if="Object.keys(data).length !=0">
+	<div id="player" v-if="Object.keys(data).length !=0" @click="toPlayer">
 		<audio ref="audio" autoplay @timeupdate="timeupdate" :src="data[0]" @playing="playing"></audio>
 		<div class="progress">
 			<div class="progress-bar" :style="{ width: value }"></div>
@@ -10,9 +10,7 @@
 				<div class="item">
 					<span>{{ data[1].name }}</span>
 					<p>
-						<span v-for="item in data[1].song.artists" :key="item.name">{{
-							item.name
-						}}</span>
+						<span v-for="item in data[1].song.artists" :key="item.name">{{item.name }}</span>
 					</p>
 				</div>
 			</div>
@@ -32,7 +30,6 @@
 </template>
 
 <script>
-import {mapState} from 'vuex';
 export default {
 	name: 'player',
 	data() {
@@ -41,14 +38,13 @@ export default {
 			duration: '00:00',
 			currentTime: '00:00',
 			value: '',
-			player: true,
+			player: false,
       platList: []  //播放列表
 		};
 	},
 	mounted() {
 		this.$bus.$on('upData', (data) => {
       this.data = data
-      this.$refs.audio.pause()
     });
 		document.onkeyup = (event) => {
       // key.preventDefault()
@@ -69,10 +65,22 @@ export default {
 			this.currentTime = this.$refs.audio.currentTime;
 			this.duration = this.$refs.audio.duration;
 			this.value = (this.currentTime / this.duration) * 100 + '%';
-			console.log(this.$store.state);
+      const _data = {}
+      // const [1] = [this.data]
+      _data.info = this.data[1]
+      _data.url = this.data[0]
+      _data.duration = this.duration
+      _data.currentTime = this.currentTime
+      this.$store.commit('musicInfo', _data)
+      // _data.sName:
 		},
     playing(){
       this.player = true
+    },
+    toPlayer(){
+      this.$router.push({path: '/player'})
+      this.$refs.audio.pause()
+
     }
 	},
 	computed: {

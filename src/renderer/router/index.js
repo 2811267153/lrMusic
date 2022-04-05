@@ -2,7 +2,7 @@ import Vue from 'vue'
 import Router from 'vue-router'
 
 import homeView from "../views/HomeView";
-import playMain from "../views/playMain";
+import playerMain from '../views/playerMain'
 import recommend from '../views/home/recommend'
 import latestMusic from "../views/home/latestMusic";
 import rankList from "../views/home/rankList";
@@ -31,11 +31,11 @@ Vue.use(Router)
         {name: 'artist',path: '/home/detailArtist', component: detailArtist, meta:{keepAlive: false}},
         {name: 'artistList',path: '/home/artistList', component: artistList, meta:{keepAlive: true}} ,
       ]
-
     },
     {
-      path: '/play',
-      components: playMain,
+      path: '/player',
+      name: 'player',
+      component: playerMain
     }
   ]
 })

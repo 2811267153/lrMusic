@@ -1,6 +1,5 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
-import fa from "element-ui/src/locale/lang/fa";
 Vue.use(Vuex)
 
 export default new Vuex.Store({
@@ -9,11 +8,15 @@ export default new Vuex.Store({
   state: {
     addToPlayList: [],
     isLoading: false,
+    musicInfo: {}
   },
   mutations: {
     addToPlay(state, playList){
       state.addToPlayList.push(playList)
       console.log(state.addToPlayList)
     },
+    musicInfo(state, musicInfo){
+      state.musicInfo = musicInfo
+    }
   }
 })

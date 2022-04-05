@@ -148,6 +148,16 @@ export function getNewSong(type) {
     });
 }
 
+//获取歌词
+export function getSongLyric(id) {
+    return request({
+        url: '/lyric',
+        params: {
+           id
+        }
+    });
+}
+
 
 
 export function getLogin(phone, password) {
