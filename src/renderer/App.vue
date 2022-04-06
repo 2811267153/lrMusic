@@ -31,6 +31,8 @@ export default {
 };
 </script>
 <style>
+@import "assets/css/index.css";
+@import "//at.alicdn.com/t/font_3255979_h82dn0ymwch.css";
 
 .player{
   position: sticky;

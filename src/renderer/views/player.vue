@@ -1,6 +1,7 @@
 <template>
 	<div id="player" v-if="Object.keys(data).length !=0" @click="toPlayer">
-		<audio ref="audio" autoplay @timeupdate="timeupdate" :src="data[0]" @playing="playing"></audio>
+		<audio ref="audio" autoplay @timeupdate="timeupdate" :src="data[0]" @playing="playing" @ended="ended"></audio>
+    <lr-audio :url="data[0]"/>
 		<div class="progress">
 			<div class="progress-bar" :style="{ width: value }"></div>
 		</div>
@@ -30,7 +31,9 @@
 </template>
 
 <script>
+import lrAudio from "../components/lr-audio";
 export default {
+
 	name: 'player',
 	data() {
 		return {
@@ -45,6 +48,8 @@ export default {
 	mounted() {
 		this.$bus.$on('upData', (data) => {
       this.data = data
+      console.log(this.data)
+
     });
 		document.onkeyup = (event) => {
       // key.preventDefault()
@@ -60,6 +65,9 @@ export default {
 			}
 		};
 	},
+  components: {
+    lrAudio
+  },
 	methods: {
 		timeupdate() {
 			this.currentTime = this.$refs.audio.currentTime;
@@ -77,10 +85,11 @@ export default {
     playing(){
       this.player = true
     },
+    ended(){
+      this.player = false
+    },
     toPlayer(){
       this.$router.push({path: '/player'})
-      this.$refs.audio.pause()
-
     }
 	},
 	computed: {
@@ -126,7 +135,7 @@ export default {
 	justify-content: space-between;
 	align-items: center;
 	padding: 0 20px;
-	margin-top: 6px 0;
+	margin-top: 6px;
 }
 #img {
 	float: left;

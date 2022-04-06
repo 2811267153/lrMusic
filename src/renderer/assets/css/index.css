@@ -1,10 +1,10 @@
 @font-face {
     font-family: "myFontEnglesh";
-    src: url("../../fonts/NotoSans-Medium.ttf");
+    src: url("fonts/NotoSans-Medium.ttf");
 }
 @font-face {
     font-family: "myFont";
-    src: url("../../fonts/SourceHanSansCN-Medium.otf");
+    src: url("fonts/SourceHanSansCN-Medium.otf");
 }
 :root{
     --bg-c: #f2f2f2;

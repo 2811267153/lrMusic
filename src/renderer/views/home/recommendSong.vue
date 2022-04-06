@@ -39,7 +39,7 @@ export default {
       this.timer = setTimeout(() => {
         console.log('-------------------')
         getSearchUrl(item.id).then(res => {
-          this.$bus.$emit('upData', [res.data.data[0].url, item])
+          this.$bus.$emit('upData', [res.data.data[0].url, item,])
         }).catch(e => {
           this.$message({
             message: e

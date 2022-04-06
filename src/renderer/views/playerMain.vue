@@ -7,18 +7,20 @@
         <p>{{musicInfo.info.name}}</p>
         <p class="artists"><span v-for="item in musicInfo.info.song.artists">{{item.name}}</span></p>
         <img :src="musicInfo.info.picUrl" alt="">
-
-
         <div class="music-btn">
-aa
-
         </div>
+        <div class="blank"></div>
         <div class="controller-warp">
           <div class="currentTime">{{((currentTime ) * 1000) | rounding}}</div>
           <div class="controller">
-            <el-progress :percentage="(currentTime / musicInfo.duration) * 100" color="#ea4c89" :show-text="false"></el-progress>
+            <el-progress :percentage="(currentTime / musicInfo.duration) * 100" color="#ea4c89" class="progress" :show-text="false"></el-progress>
           </div>
           <div class="duration">{{((musicInfo.duration) * 1000) | rounding}}</div>
+        </div>
+        <div class="btn-controller">
+          <i @click="_getRecSongs(musicInfo.info.id, '', musicInfo.info.id)" class="icon iconfont icon-icon_xindong"></i>
+          <i class="icon iconfont icon-xiazai"></i>
+          <i @click="_getCloudSongs" class="icon iconfont icon-yunpan"></i>
         </div>
       </div>
       <div class="player-lyrics">
@@ -33,7 +35,7 @@ aa
 </template>
 
 <script>
-import {getSongLyric} from "../network/home";
+import {getCloudSongs, getRecSongs, getSongLyric} from "../network/home";
 import {formatTime} from "../util";
 export default {
   name: "playerMain",
@@ -49,10 +51,15 @@ export default {
     this.musicInfo = this.$store.state.musicInfo
     console.log(this.musicInfo)
     this._getSongLyric(this.musicInfo.info.id)
+    setInterval(() => {
+      this.currentTime = this.$store.state.musicInfo.currentTime
+      this.duration = this.$store.state.musicInfo.duration
+    }, 100)
   },
   mounted() {
-    this.$refs.audio.currentTime =  this.musicInfo.currentTime
-    this.$refs.audio.play()
+    console.log( this.musicInfo)
+    // this.$refs.audio.currentTime =  this.musicInfo.currentTime
+    // Object.keys(this.musicInfo).length ===  0 ?   this.$router.back() :
   },
   methods: {
     goBack(){
@@ -81,6 +88,18 @@ export default {
         }
       }).catch(e => {
         console.log(e)
+        this.$message.error('请求失败 请重试');
+      })
+    },
+
+    _getRecSongs(id,pid, sid){
+      getRecSongs(id,pid, sid).then(res => {
+        console.log(res)
+      }).catch(e => {})
+    },
+    _getCloudSongs(){
+      getCloudSongs().then(res => {
+        console.log(res)
       })
     },
     timeupdate(){
@@ -104,9 +123,7 @@ export default {
     }
   },
   filters: {
-
     rounding(value){
-      console.log(value)
       return  formatTime(value)
   }
 }}
@@ -186,5 +203,21 @@ export default {
 }
 .music-btn {
   margin: 20px 0;
+}
+.progress {
+  height: 3px;
+}
+.blank {
+  height: 20px;
+}
+.btn-controller{
+  display: flex;
+  margin-top: 20px;
+  justify-content: space-evenly;
+}
+.btn-controller i{
+  font-size: 25px;
+  width: 30%;
+  text-align: center;
 }
 </style>
