@@ -135,6 +135,7 @@ export default {
     rowClick(row){
       getSearchUrl(row.id,).then(res => {
         this.$bus.$emit('upData', res.data)
+        console.log(res)
       })
     }
   }

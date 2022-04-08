@@ -1,4 +1,5 @@
-import {request} from "@/network/axios";
+import {request} from "./axios";
+// import {request} form
 
 export function getBanner(type) {
     return request({
@@ -8,6 +9,7 @@ export function getBanner(type) {
         }
     })
 }
+
 //加载推荐歌单
 export function getResource(type) {
     return request({
@@ -17,6 +19,7 @@ export function getResource(type) {
         }
     })
 }
+
 //加载 推荐歌单的详细数据
 export function getResourceInfo(id) {
     return request({
@@ -26,17 +29,19 @@ export function getResourceInfo(id) {
         }
     })
 }
+
 //获取歌单的所有歌曲
-export function getResourceAll(id, limit , offset) {
+export function getResourceAll(id, limit, offset) {
     return request({
         url: '/playlist/track/all',
         params: {
-            id, limit , offset
+            id, limit, offset
         }
     });
 }
+
 //获取精品歌单
-export function getBoutique( limit) {
+export function getBoutique(limit) {
     return request({
         url: '/top/playlist/highquality',
         params: {
@@ -46,7 +51,7 @@ export function getBoutique( limit) {
 }
 
 //获取推荐新音乐
-export function getRecommendSong( limit) {
+export function getRecommendSong(limit) {
     return request({
         url: '/personalized/newsong',
         params: {
@@ -54,8 +59,9 @@ export function getRecommendSong( limit) {
         }
     });
 }
+
 //获取推荐音乐人
-export function getRecommendArtist( limit ) {
+export function getRecommendArtist(limit) {
     return request({
         url: '/top/artists',
         params: {
@@ -63,8 +69,9 @@ export function getRecommendArtist( limit ) {
         }
     });
 }
+
 //获取歌手部分信息和热门单曲
-export function getRecommendArtistSong( id ) {
+export function getRecommendArtistSong(id) {
     return request({
         url: '/artists',
         params: {
@@ -72,8 +79,9 @@ export function getRecommendArtistSong( id ) {
         }
     });
 }
+
 //获取歌手mv
-export function getRecommendArtistMv( id ) {
+export function getRecommendArtistMv(id) {
     return request({
         url: '/artist/mv',
         params: {
@@ -83,7 +91,7 @@ export function getRecommendArtistMv( id ) {
 }
 
 //获取歌手专辑
-export function getRecommendArtistAlbum( id, limit, offset ) {
+export function getRecommendArtistAlbum(id, limit, offset) {
     return request({
         url: '/artist/album',
         params: {
@@ -91,8 +99,9 @@ export function getRecommendArtistAlbum( id, limit, offset ) {
         }
     });
 }
+
 //获取歌单
-export function getRecommendAlbum( id, limit, offset ) {
+export function getRecommendAlbum(id, limit, offset) {
     return request({
         url: '/playlist/catlist',
         params: {
@@ -100,20 +109,23 @@ export function getRecommendAlbum( id, limit, offset ) {
         }
     });
 }
+
 //获取精品歌单分类
 export function getRecommendAlbumSort() {
     return request({
         url: '/playlist/catlist',
     });
 }
+
 //获取歌单分类(常规)
 export function getRecommendAlbums() {
     return request({
         url: '/playlist/hot',
     });
 }
+
 //获取歌单分类内容
-export function getRecommendAlbumsContent(cat,limit, before) {
+export function getRecommendAlbumsContent(cat, limit, before) {
     console.log(cat, limit, before)
     return request({
         url: '/top/playlist/highquality',
@@ -122,6 +134,7 @@ export function getRecommendAlbumsContent(cat,limit, before) {
         }
     });
 }
+
 //获取每日榜单
 export function getDailyList() {
     return request({
@@ -138,6 +151,7 @@ export function getSingerCategory(limit, offset, type, area, initial) {
         }
     });
 }
+
 //新歌速递
 export function getNewSong(type) {
     return request({
@@ -153,11 +167,30 @@ export function getSongLyric(id) {
     return request({
         url: '/lyric',
         params: {
-           id
+            id
         }
     });
 }
 
+//心动模式
+export function getRecSongs(id, pid, sid) {
+    return request({
+        url: '/playmode/intelligence/list',
+        params: {
+            id, pid, sid
+        }
+    });
+}
+
+//获取云盘
+export function getCloudSongs(limit, offset) {
+    return request({
+        url: '/user/cloud',
+        params: {
+            limit, offset
+        }
+    });
+}
 
 
 export function getLogin(phone, password) {

@@ -60,7 +60,6 @@ export default {
     getNewSong(label, index){
       this.navCurrentIndex = index
       getNewSong(label).then(res => {
-        console.log(res)
         this.newSongData = res.data.data
       }).catch(e => {
         console.log(e)
