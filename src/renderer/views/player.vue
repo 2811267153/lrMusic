@@ -1,5 +1,5 @@
 <template>
-	<div id="player" v-if="Object.keys(data).length !=0" @click="toPlayer">
+	<div id="player" v-if="Object.keys(data).length !==0" @click="toPlayer">
 		<audio ref="audio" autoplay @timeupdate="timeupdate" :src="data[0]" @playing="playing" @ended="ended"></audio>
     <lr-audio :url="data[0]"/>
 		<div class="progress">
@@ -10,8 +10,8 @@
 				<img :src="data[1].picUrl" id="img" alt="" srcset="" />
 				<div class="item">
 					<span>{{ data[1].name }}</span>
-					<p>
-						<span v-for="item in data[1].song.artists" :key="item.name">{{item.name }}</span>
+					<p >
+						<span v-for="item in data[1].song.artists " :key="item.name">{{item.name }}</span>
 					</p>
 				</div>
 			</div>
@@ -37,7 +37,7 @@ export default {
 	name: 'player',
 	data() {
 		return {
-			data: [],
+			data: ['', {}],
 			duration: '00:00',
 			currentTime: '00:00',
 			value: '',
@@ -48,7 +48,7 @@ export default {
 	mounted() {
 		this.$bus.$on('upData', (data) => {
       this.data = data
-      console.log(this.data)
+      console.log(data)
 
     });
 		document.onkeyup = (event) => {
@@ -93,9 +93,9 @@ export default {
     }
 	},
 	computed: {
-		addPlayList(){
-			return this.$store.state.addToPlay
-		}
+    songs(){
+      return  this.data[1].song.artists || this.data[1].ar
+    }
 	},
 };
 </script>

@@ -112,9 +112,19 @@ export default {
       })
     },
     cellClick(row){
+      console.log(row)
+
+      const data = {
+        song:{}
+      }
+      data.name = row.name
+      data.picUrl= row.al.picUrl
+      data.song.artists  =row.ar
+      data.id = row.id
+      data.pid = this.id
       getSearchUrl(row.id).then(res => {
-        this.$bus.$emit('upData', res.data)
-        console.log(res)
+        this.$bus.$emit('upData', [res.data.data[0].url, data])
+        // console.log(res)
       }).catch( e => {
         this.$message({
           message: e

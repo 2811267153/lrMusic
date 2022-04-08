@@ -1,4 +1,5 @@
-import {request} from "@/network/axios";
+import {request} from "./axios";
+// import {request} form
 
 export function getBanner(type) {
     return request({
