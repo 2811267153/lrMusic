@@ -35,7 +35,7 @@ export default {
 @import "https://at.alicdn.com/t/font_3255979_h82dn0ymwch.css?spm=a313x.7781069.1998910419.125&file=font_3255979_h82dn0ymwch.css";
 
 .player{
-  position: sticky;
+  position: fixed;
   bottom: 0;
 }
 </style>

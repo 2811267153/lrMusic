@@ -2,7 +2,8 @@
   <div class="recommend-music">
     <h2>最新音乐</h2>
     <div id="songList_warp">
-      <div class="songList-item" @click="toPlayer(item)" @dblclick="addToPlay(item)" v-for="item in recommendSong" :key="item.id">
+      <div class="songList-item" @click="toPlayer(item)" @dblclick="addToPlay(item)" v-for="item in recommendSong"
+           :key="item.id">
         <el-image class="item-img" :src="item.picUrl"></el-image>
         <div class="mask"><i class="icon iconfont icon-bofang-01"></i></div>
         <div class="song-info">
@@ -32,12 +33,11 @@ export default {
   },
   methods: {
     toPlayer(item) {
-      if (this.timer){
+      if (this.timer) {
         clearTimeout(this.timer)
         this.timer = null
       }
       this.timer = setTimeout(() => {
-        console.log('-------------------')
         getSearchUrl(item.id).then(res => {
           this.$bus.$emit('upData', [res.data.data[0].url, item,])
         }).catch(e => {
@@ -48,16 +48,23 @@ export default {
       }, 300)
 
     },
-    addToPlay(item){
-      if (this.timer){
+    addToPlay(item) {
+      if (this.timer) {
         clearTimeout(this.timer)
         this.timer = null
       }
-      this.$store.commit('addToPlay', item)
-      this.$message({
-        message: '已将歌曲添加到播放列表中'
+
+      getSearchUrl(item.id).then(res => {
+        this.$store.commit('addToPlay', [res.data.data[0].url, item,])
+        console.log(this.$store.state)
+        this.$message({
+          message: '已将歌曲添加到播放列表中'
+        })
+      }).catch(e => {
+        this.$message({
+          message: e
+        })
       })
-      console.log(this.$store.state)
     }
   }
 
@@ -65,10 +72,11 @@ export default {
 </script>
 
 <style scoped>
-.recommend-music h2{
+.recommend-music h2 {
   padding-top: 20px;
   font-size: 21px;
 }
+
 #songList_warp {
   display: grid;
   /*flex-wrap: wrap;*/
@@ -136,7 +144,8 @@ export default {
   font-size: 0px;
   color: var(--active-c);
 }
-.songList-item:hover{
+
+.songList-item:hover {
   box-shadow: 0 0 15px #ccc;
 }
 

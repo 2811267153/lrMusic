@@ -43,7 +43,7 @@ export default {
     recommendArtist
   },
   created() {
-    this.getLogin(this.form.phone, this.form.password)
+    // this.getLogin(this.form.phone, this.form.password)
     this._getBanner(this.type)
     if (this.isLogin){
       this._getResource()

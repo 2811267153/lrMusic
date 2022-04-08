@@ -33,6 +33,7 @@ export default {
 </script>
 
 <style scoped>
+
 .path-warp{
   line-height: 50px;
   width: 300px;

@@ -1,7 +1,7 @@
 <template>
 	<div id="home">
 		<div class="main">
-      <nav-path></nav-path>
+      <nav-path class="path"></nav-path>
 			<div v-if="Object.keys(songsData).length !== 0" class="container">
         <div class="container-item" v-for="(item, i) in songsData.songs" @click="songPlayer(item)">
           <div class="index">{{i}}</div>
@@ -82,10 +82,16 @@ export default {
   display: flex;
   background-color: #fff;
 }
+.path{
+  position: relative;
+  background-color: #fff;
+  width: 300px;
+
+}
 
 .container {
   flex: 1;
-  height: 700px;
+  height: 697px;
   overflow: auto;
   padding: 0 15px;
 }

@@ -6,7 +6,7 @@
 			<div class="progress-bar" :style="{ width: value }"></div>
 		</div>
 		<div class="song-info">
-			<div>
+			<div class="bar">
 				<img :src="data[1].picUrl" id="img" alt="" srcset="" />
 				<div class="item">
 					<span>{{ data[1].name }}</span>
@@ -16,13 +16,13 @@
 				</div>
 			</div>
 			<div class="icons">
-				<i class="icon iconfont icon-zuo-02"></i>
+				<i @click.stop="changeClick('Previous')" class="icon iconfont icon-zuo-02"></i>
 
-				<i v-if="player" class="icon iconfont icon-zanting-01"></i>
-				<i v-else class="icon iconfont icon-bofang-02"></i>
-				<i class="icon iconfont icon-you-02"></i>
+				<i @click.stop="changeClick('pause')" v-if="player" class="icon iconfont icon-zanting-01"></i>
+				<i @click.stop="changeClick('play')" v-else class="icon iconfont icon-bofang-02"></i>
+				<i @click.stop="changeClick('next')" class="icon iconfont icon-you-02"></i>
 			</div>
-			<div class="icons fs">
+			<div class=" bar icons fs">
 				<i class="icon iconfont icon-yinliang"></i>
 				<i class="icon iconfont icon-yinle-07"></i>
 			</div>
@@ -42,14 +42,13 @@ export default {
 			currentTime: '00:00',
 			value: '',
 			player: false,
-      platList: []  //播放列表
+      playList: [],//播放列表
+      currentPlayerIndex: 0
 		};
 	},
 	mounted() {
 		this.$bus.$on('upData', (data) => {
       this.data = data
-      console.log(data)
-
     });
 		document.onkeyup = (event) => {
       // key.preventDefault()
@@ -87,9 +86,56 @@ export default {
     },
     ended(){
       this.player = false
+      console.log(this.$store.state.addToPlayList);
+      if(this.$store.state.addToPlayList.length !== 0) {
+        this.playList = this.$store.state.addToPlayList
+        //首先判断如何进入的播放列表
+        if(this.currentPlayerIndex >= 0 && this.currentPlayerIndex <= this.playList.length){
+          this.data = this.playList[this.currentPlayerIndex]
+          this.currentPlayerIndex ++
+      }}else  {
+        this.currentPlayerIndex = 0
+      }
     },
     toPlayer(){
       this.$router.push({path: '/player'})
+    },
+    changeClick(type){
+      this.playList = this.$store.state.addToPlayList
+      console.log(type)
+      switch (type) {
+        case 'Previous':
+
+          if(this.playList.length !== 0 && this.currentPlayerIndex <=this.playList.length && this.currentPlayerIndex >= 0){
+            this.currentPlayerIndex > 0 ?   this.currentPlayerIndex -- : this.currentPlayerIndex = 0
+            console.log(this.currentPlayerIndex)
+
+            this.data = this.playList[this.currentPlayerIndex]
+            this.$refs.audio.play();
+          }else {
+            this.$message.error('当前播放列表市空的')
+          }
+          break
+        case 'pause':
+          this.$refs.audio.pause();
+          this.player = false
+          break
+        case 'play':
+          this.$refs.audio.play();
+          this.player = true
+          break
+        case 'next':
+          if(this.playList.length !== 0 && this.currentPlayerIndex < this.playList.length - 1){
+            this.currentPlayerIndex ++
+            console.log(this.currentPlayerIndex)
+            this.data = this.playList[this.currentPlayerIndex]
+            this.$refs.audio.play();
+
+          }else {
+            this.$message.error('当前播放列表市空的')
+          }
+          break
+      }
     }
 	},
 	computed: {
@@ -106,11 +152,11 @@ export default {
   bottom: 0;
 } */
 #player {
-	overflow: auto;
+	/*overflow: hidden;*/
 	/* position: relative; */
 	z-index: 10;
 	width: 100%;
-	height: 53px;
+	/*height: 53px;*/
 	background-color: #fff;
 	box-shadow: 0 0px 10px #ccc;
 }
@@ -149,7 +195,6 @@ export default {
 
 	margin-left: 10px;
 	display: inline-block;
-	vertical-align: top;
 }
 .item span {
 	font-size: 14px;
@@ -165,5 +210,8 @@ export default {
 .fs i{
 	color: #ccc;
 	font-size: 18px;
+}
+.bar{
+  max-width: 300px;
 }
 </style>
