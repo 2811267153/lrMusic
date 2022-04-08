@@ -1,6 +1,7 @@
 import devtools from '@vue/devtools'
 import Vue from 'vue'
 import axios from 'axios'
+import vueCookie from 'vue-cookie'
 
 import App from './App'
 import router from './router'
@@ -10,6 +11,7 @@ import ElementUi from 'element-ui'
 import 'element-ui/lib/theme-chalk/index.css'
 
 Vue.use(ElementUi)
+Vue.use(vueCookie)
 Vue.prototype.$bus = new Vue()
 
 if (!process.env.IS_WEB) Vue.use(require('vue-electron'))

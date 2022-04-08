@@ -52,8 +52,8 @@ export default {
     }
     this._getRecommendSong(20)
     this._gerRecommendArtist(18)
-    getLogin(this.form.phone, this.form.password).then(res => {
-    })
+    // getLogin(this.form.phone, this.form.password).then(res => {
+    // })
   },
   methods: {
     getLogin(phone, password){

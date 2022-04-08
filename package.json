@@ -61,6 +61,7 @@
     "pify": "^5.0.0",
     "vue": "^2.5.16",
     "vue-aplayer": "^1.6.1",
+    "vue-cookie": "^1.1.4",
     "vue-electron": "^1.0.6",
     "vue-router": "^3.0.1",
     "vuex": "^3.0.1",
