@@ -56,11 +56,11 @@ export default {
     // })
   },
   methods: {
-    getLogin(phone, password){
-      getLogin(phone, password).then(res => {
-        console.log(res)
-      })
-    },
+    // getLogin(phone, password){
+    //   getLogin(phone, password).then(res => {
+    //     console.log(res)
+    //   })
+    // },
     _getBanner(type){
       getBanner(type).then(res => {
         this.banners =res.data.banners
