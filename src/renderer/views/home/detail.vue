@@ -19,69 +19,71 @@
         </div>
       </div>
     </div>
-    <el-table
-        v-show="all"
-        :data="playList.tracks"
-        stripe
-        @cell-dblclick="cellClick"
-        style="width: 100%">
-      <el-table-column
-          prop="name"
-          label=""
-          width="50">
-        <template scope="scope">{{scope.$index + 1}}</template>
-      </el-table-column>
-      <el-table-column
-          prop="name"
-          label="标题"
-          width="500">
-      </el-table-column>
-      <el-table-column
-          prop="ar"
-          label="歌手"
-          width="400">
-        <template scope="scope">
-          <span class="ar-item" v-for="item in scope.row.ar">{{item.name}}</span>
-        </template>
-      </el-table-column>
-      <el-table-column
-          prop="al"
-          label="专辑">
-        <template scope="scope">{{scope.row.al.name}}</template>
-      </el-table-column>
-    </el-table>
+<!--    <el-table-->
+<!--        v-show="all"-->
+<!--        :data="playList.tracks"-->
+<!--        stripe-->
+<!--        @cell-dblclick="cellClick"-->
+<!--        style="width: 100%">-->
+<!--      <el-table-column-->
+<!--          prop="name"-->
+<!--          label=""-->
+<!--          width="50">-->
+<!--        <template scope="scope">{{scope.$index + 1}}</template>-->
+<!--      </el-table-column>-->
+<!--      <el-table-column-->
+<!--          prop="name"-->
+<!--          label="标题"-->
+<!--          width="500">-->
+<!--      </el-table-column>-->
+<!--      <el-table-column-->
+<!--          prop="ar"-->
+<!--          label="歌手"-->
+<!--          width="400">-->
+<!--        <template scope="scope">-->
+<!--          <span class="ar-item" v-for="item in scope.row.ar">{{item.name}}</span>-->
+<!--        </template>-->
+<!--      </el-table-column>-->
+<!--      <el-table-column-->
+<!--          prop="al"-->
+<!--          label="专辑">-->
+<!--        <template scope="scope">{{scope.row.al.name}}</template>-->
+<!--      </el-table-column>-->
+<!--    </el-table>-->
 
-    <el-table
-        v-show="!all"
-        :data="allPlayList"
-        @cell-dblclick="cellClick"
-        style="width: 100%">
-      <el-table-column
-          prop="name"
-          label=""
-          width="50">
-        <template scope="scope">{{scope.$index + 1}}</template>
-      </el-table-column>
-      <el-table-column
-          prop="name"
-          label="标题"
-          width="500">
-      </el-table-column>
-      <el-table-column
-          prop="ar"
-          label="歌手"
-          width="400">
-        <template scope="scope">
-          <span class="ar-item" v-for="item in scope.row.ar">{{item.name}}</span>
-        </template>
-      </el-table-column>
-      <el-table-column
-          prop="al"
-          label="专辑">
-        <template scope="scope">{{scope.row.al.name}}</template>
-      </el-table-column>
-    </el-table>
-    <div  id="end-btn"><button @click="getAll">加载所有歌曲</button></div>
+<!--    <el-table-->
+<!--        v-show="!all"-->
+<!--        :data="allPlayList"-->
+<!--        @cell-dblclick="cellClick"-->
+<!--        style="width: 100%">-->
+<!--      <el-table-column-->
+<!--          prop="name"-->
+<!--          label=""-->
+<!--          width="50">-->
+<!--        <template scope="scope">{{scope.$index + 1}}</template>-->
+<!--      </el-table-column>-->
+<!--      <el-table-column-->
+<!--          prop="name"-->
+<!--          label="标题"-->
+<!--          width="500">-->
+<!--      </el-table-column>-->
+<!--      <el-table-column-->
+<!--          prop="ar"-->
+<!--          label="歌手"-->
+<!--          width="400">-->
+<!--        <template scope="scope">-->
+<!--          <span class="ar-item" v-for="item in scope.row.ar">{{item.name}}</span>-->
+<!--        </template>-->
+<!--      </el-table-column>-->
+<!--      <el-table-column-->
+<!--          prop="al"-->
+<!--          label="专辑">-->
+<!--        <template scope="scope">{{scope.row.al.name}}</template>-->
+<!--      </el-table-column>-->
+<!--    </el-table>-->
+
+    <song-item  :new-song-data="playList.tracks"/>
+    <div  id="end-btn"><button @click="getAll" v-if="all">加载所有歌曲</button></div>
   </div>
 </template>
 
@@ -89,13 +91,14 @@
 import {getResourceAll, getResourceInfo} from "../../network/home";
 import {formatDate, roundingData} from "../../util";
 import {getSearchUrl} from "../../network/search";
+import songItem from "./song-item";
 export default {
   name: "detail",
   data(){
     return{
       id: '',
       all: true,
-      playList: [],
+      playList: {},
       allPlayList: [],
 
     }
@@ -132,8 +135,8 @@ export default {
       })
     },
     getAll(){
-      getResourceAll(this.id,this.limit ,this.offset).then(res => {
-        this.allPlayList = res.data.songs
+      getResourceAll(this.id,this.limit, this.offset).then(res => {
+        this.playList.tracks = res.data.songs
         this.all = false
       })
     }
@@ -151,6 +154,9 @@ export default {
     creators(){
       return this.playList.creator
     }
+  },
+  components: {
+    songItem
   }
 }
 </script>

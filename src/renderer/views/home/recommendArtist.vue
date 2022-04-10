@@ -38,14 +38,12 @@ h2{
 
 }
 #recommend-artist{
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: space-between;
+
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  grid-gap: 20px;
 }
 .artist-item{
-  width: 150px;
-  overflow: hidden;
-  margin-top: 10px;
 }
 .artist-item:hover p{
   padding-left: 50px;

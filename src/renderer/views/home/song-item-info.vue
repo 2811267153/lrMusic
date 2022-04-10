@@ -1,0 +1,139 @@
+<template>
+  <div class="song-item">
+<!--    {{item}}-->
+    <div class="item-l">
+      <span>{{ i + 1 }}</span>
+      <el-image class="el-img" :src="showImg" :lazy="true"></el-image>
+      <span class="name">{{ item.name}}</span>
+    </div>
+    <div class="item-info">
+      <p v-if="item.hasOwnProperty('artists')">
+        <span v-for="artists in item.artists">{{ artists.name }}</span>
+      </p>
+      <p v-else>
+        <span v-for="artists in item.ar">{{ artists.name}}</span>
+      </p>
+    </div>
+    <div class="item-r">
+<!--      <a><i>{{ names}}</i></a>-->
+      <span>{{ item.dt || item.duration | rounding }}</span>
+    </div>
+  </div>
+</template>
+
+<script>
+import {formatTime} from "../../util";
+
+export default {
+  name: "song-item-info",
+  props: {
+    item: {
+      type: Object,
+      default(){
+        return {}
+      }
+    },
+    i: {
+      type: Number,
+      default(){
+        return 0
+      }
+    }
+  },
+  filters: {
+    rounding(value){
+      return formatTime(value);
+    }
+  },
+  created() {
+    // console.log(this.item.ar[0].name);
+  },
+
+  computed: {
+    showImg(){
+      // return  this.item.album.picUrl||  this.item.al.picUrl
+      console.log(this.item)
+      // return   this.item.album.picUrl || this.item.al.picUrl    || ""
+
+      return this.item.album ===  undefined ? this.item.al.picUrl :   this.item.album.picUrl
+    },
+    names(){
+      // return  this.item.album.name ||  this.item.ar[0].name || ''
+      return this.item.album === undefined?  this.item.album.name : this.item.ar[0].name
+    }
+  }
+}
+</script>
+
+<style scoped>
+
+.song-item{
+  font-size: 12px;
+  box-shadow: 0 0 15px #f2f2f2;
+  margin: 20px 0;
+  border-radius: 10px;
+  padding: 10px 15px;
+  display: flex;
+  justify-content: space-between;
+  color: #cccccc;
+  align-items: center;
+}
+.item-info, .item-r{
+  width: 190px;
+  white-space: nowrap;
+
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.item-info p{
+  overflow: hidden;
+  text-overflow: ellipsis;
+  width: 100%;
+  white-space: nowrap;
+
+}
+.item-l{
+  flex: 1;
+}
+
+.item-l .el-img{
+  width: 100px;
+  height: 100px;
+  border-radius: 10px;
+  vertical-align: middle;
+  margin: 0 20px;
+}
+.item-l span{
+  display: inline-block;
+  width: 40px;
+  text-align: center;
+  vertical-align: middle;
+}
+
+.item-l .name{
+  width: 350px;
+  text-align: left;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+
+}
+.item-info span{
+  margin: 0 10px;
+  vertical-align: top;
+}
+.item-r a{
+  padding: 0 10px;
+  vertical-align: top;
+
+  display: inline-block;
+  width: 100px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: normal;
+}
+.item-r a i{
+  font-style: normal;
+  color: #cccccc;
+}
+</style>

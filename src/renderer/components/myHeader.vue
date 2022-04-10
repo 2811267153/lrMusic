@@ -144,7 +144,6 @@ export default {
 }
 .path-item i{
   text-align: center;
-  font-size: 18px;
   padding: 10px;
   transition: all .2s;
   border-radius: 20px;
@@ -173,7 +172,6 @@ export default {
 .search-bar input {
   width: calc(100% - 42px);
   background-color: transparent;
-  font-size: 18px;
   outline: none ;
 }
 </style>

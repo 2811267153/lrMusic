@@ -32,8 +32,8 @@ export default {
       recommendData: [],
       recommendSong: [],
       form: {
-        phone: '17572696252',
-        password: 'xybwdhxd0422'
+        phone: '15337330870',
+        password: '1234567890.'
       }
     }
   },
@@ -44,6 +44,7 @@ export default {
   },
   created() {
     // this.getLogin(this.form.phone, this.form.password)
+    // this.getLogins('ssss')
     this._getBanner(this.type)
     if (this.isLogin){
       this._getResource()
@@ -53,13 +54,22 @@ export default {
     this._getRecommendSong(20)
     this._gerRecommendArtist(18)
     // getLogin(this.form.phone, this.form.password).then(res => {
+    //   console.log(res)
     // })
   },
   methods: {
     // getLogin(phone, password){
-    //   getLogin(phone, password).then(res => {
-    //     console.log(res)
-    //   })
+    //     const data = 'MUSIC_R_T=1561036422261; Max-Age=2147483647; Expires=Thu, 27 Apr 2090 18:21:47 GMT; Path=/eapi/clientlog;;MUSIC_R_T=1561036422261; Max-Age=2147483647; Expires=Thu, 27 Apr 2090 18:21:47 GMT; Path=/neapi/feedback;;__remember_me=true; Max-Age=1296000; Expires=Sun, 24 Apr 2022 15:07:40 GMT; Path=/;;MUSIC_A_T=1561035410296; Max-Age=2147483647; Expires=Thu, 27 Apr 2090 18:21:47 GMT; Path=/wapi/feedback;;MUSIC_A_T=1561035410296; Max-Age=2147483647; Expires=Thu, 27 Apr 2090 18:21:47 GMT; Path=/api/clientlog;;MUSIC_A_T=1561035410296; Max-Age=2147483647; Expires=Thu, 27 Apr 2090 18:21:47 GMT; Path=/neapi/feedback;;MUSIC_A_T=1561035410296; Max-Age=2147483647; Expires=Thu, 27 Apr 2090 18:21:47 GMT; Path=/api/feedback;;MUSIC_SNS=; Max-Age=0; Expires=Sat, 9 Apr 2022 15:07:40 GMT; Path=/;MUSIC_R_T=1561036422261; Max-Age=2147483647; Expires=Thu, 27 Apr 2090 18:21:47 GMT; Path=/api/clientlog;;MUSIC_A_T=1561035410296; Max-Age=2147483647; Expires=Thu, 27 Apr 2090 18:21:47 GMT; Path=/wapi/clientlog;;__csrf=2b701c0eedff33f39941f6aa1132dfa1; Max-Age=1296010; Expires=Sun, 24 Apr 2022 15:07:50 GMT; Path=/;;MUSIC_R_T=1561036422261; Max-Age=2147483647; Expires=Thu, 27 Apr 2090 18:21:47 GMT; Path=/api/feedback;;MUSIC_R_T=1561036422261; Max-Age=2147483647; Expires=Thu, 27 Apr 2090 18:21:47 GMT; Path=/openapi/clientlog;;MUSIC_A_T=1561035410296; Max-Age=2147483647; Expires=Thu, 27 Apr 2090 18:21:47 GMT; Path=/openapi/clientlog;;MUSIC_A_T=1561035410296; Max-Age=2147483647; Expires=Thu, 27 Apr 2090 18:21:47 GMT; Path=/weapi/feedback;;MUSIC_A_T=1561035410296; Max-Age=2147483647; Expires=Thu, 27 Apr 2090 18:21:47 GMT; Path=/eapi/clientlog;;MUSIC_R_T=1561036422261; Max-Age=2147483647; Expires=Thu, 27 Apr 2090 18:21:47 GMT; Path=/wapi/feedback;;MUSIC_A_T=1561035410296; Max-Age=2147483647; Expires=Thu, 27 Apr 2090 18:21:47 GMT; Path=/weapi/clientlog;;MUSIC_U=6456a0328f7313261a023f083460ab3575f789e56f5f1beda7ed4d38a60108091e8907c67206e1ed63ce3bbde0d3e6aacc449b004ace71bf46b14e3f0c3f8af9fe5c85647582a507; Max-Age=1296000; Expires=Sun, 24 Apr 2022 15:07:40 GMT; Path=/;;MUSIC_A_T=1561035410296; Max-Age=2147483647; Expires=Thu, 27 Apr 2090 18:21:47 GMT; Path=/eapi/feedback;;MUSIC_A_T=1561035410296; Max-Age=2147483647; Expires=Thu, 27 Apr 2090 18:21:47 GMT; Path=/neapi/clientlog;;MUSIC_R_T=1561036422261; Max-Age=2147483647; Expires=Thu, 27 Apr 2090 18:21:47 GMT; Path=/weapi/clientlog;;MUSIC_R_T=1561036422261; Max-Age=2147483647; Expires=Thu, 27 Apr 2090 18:21:47 GMT; Path=/neapi/clientlog;;MUSIC_R_T=1561036422261; Max-Age=2147483647; Expires=Thu, 27 Apr 2090 18:21:47 GMT; Path=/weapi/feedback;;MUSIC_R_T=1561036422261; Max-Age=2147483647; Expires=Thu, 27 Apr 2090 18:21:47 GMT; Path=/wapi/clientlog;;MUSIC_R_T=1561036422261; Max-Age=2147483647; Expires=Thu, 27 Apr 2090 18:21:47 GMT; Path=/eapi/feedback;'
+    //     this.setCookie(data)
+    //     // this.$cookie.set('userInfo', '', 1);
+    //   // getLogin(phone, password).then(res => {
+    //   // })
+    //     // console.log(this.$cookie.get('userInfo'));
+    // },
+    //
+    // setCookie(data){
+    //   this.$cookie.set('userInfo',  JSON.stringify(data), 360);
+    //   console.log(this.$cookie.get('userInfo'))
     // },
     _getBanner(type){
       getBanner(type).then(res => {

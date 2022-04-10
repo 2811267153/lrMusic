@@ -9,30 +9,32 @@
         <div class="nav-r"><button>全部播放</button></div>
       </div>
     </nav>
-    <div id="song-item">
-      <div class="song-item" v-for="(item, index) in newSongData">
-        <div class="item-l">
-          <span>{{index + 1}}</span>
-          <img :src="item.album.blurPicUrl" alt="">
-          <span class="name">{{item.name}}</span>
-        </div>
-        <div class="item-info">
-          <p >
-            <span v-for="artists in item.artists">{{artists.name}}</span>
-          </p>
-        </div>
-        <div class="item-r">
-          <a><i>{{item.album.name}}</i></a>
-          <span>{{item.duration | rounding }}</span>
-        </div>
-      </div>
-    </div>
+<!--    <div id="song-item">-->
+<!--      <div class="song-item" v-for="(item, index) in newSongData">-->
+<!--        <div class="item-l">-->
+<!--          <span>{{index + 1}}</span>-->
+<!--          <img :src="item.album.blurPicUrl" alt="">-->
+<!--          <span class="name">{{item.name}}</span>-->
+<!--        </div>-->
+<!--        <div class="item-info">-->
+<!--          <p >-->
+<!--            <span v-for="artists in item.artists">{{artists.name}}</span>-->
+<!--          </p>-->
+<!--        </div>-->
+<!--        <div class="item-r">-->
+<!--          <a><i>{{item.album.name}}</i></a>-->
+<!--          <span>{{item.duration | rounding }}</span>-->
+<!--        </div>-->
+<!--      </div>-->
+<!--    </div>-->
+    <song-item :new-song-data="newSongData"></song-item>
   </div>
 </template>
 
 <script>
 import {getNewSong} from "../../network/home";
 import {formatTime} from "../../util";
+import songItem from "./song-item";
 export default {
   name: "latestMusic",
   data() {
@@ -53,6 +55,9 @@ export default {
   created() {
     this.getNewSong(this.type[0].label)
   },
+  components: {
+    songItem
+  },
   methods: {
     getData(item, i){
       this.currentIndex = i
@@ -66,11 +71,7 @@ export default {
       })
     },
   },
-  filters: {
-    rounding(value){
-      return formatTime(value)
-    }
-  }
+
 }
 </script>
 
@@ -111,70 +112,5 @@ nav button {
 }
 .navActive{
   color: var(--active-c);
-}
-.song-item{
-  font-size: 12px;
-  box-shadow: 0 0 15px #f2f2f2;
-  margin: 20px 0;
-  border-radius: 10px;
-  padding: 10px 15px;
-  display: flex;
-  justify-content: space-between;
-  color: #cccccc;
-  align-items: center;
-}
-.item-info, .item-r{
-  width: 190px;
-  overflow: hidden;
-}
-.item-info p{
-  overflow: hidden;
-  text-overflow: ellipsis;
-  width: 100%;
-  white-space: nowrap;
-
-}
-.item-l{
-  flex: 1;
-}
-.item-l img{
-  width: 100px;
-  height: 100px;
-  border-radius: 10px;
-  vertical-align: middle;
-  margin: 0 20px;
-}
-.item-l span{
-  display: inline-block;
-  width: 40px;
-  text-align: center;
-  vertical-align: middle;
-}
-
-.item-l .name{
-  width: 350px;
-  text-align: left;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  white-space: nowrap;
-
-}
-.item-info span{
-  margin: 0 10px;
-  vertical-align: top;
-}
-.item-r a{
-  padding: 0 10px;
-  vertical-align: top;
-
-  display: inline-block;
-  width: 100px;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  white-space: normal;
-}
-.item-r a i{
-  font-style: normal;
-  color: #cccccc;
 }
 </style>
