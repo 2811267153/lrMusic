@@ -1,5 +1,5 @@
 <template>
-  <div id="player" v-if="Object.keys(data).length !==0" @click="toPlayer">
+  <div id="player" @click="toPlayer">
     <audio ref="audio" autoplay @timeupdate="timeupdate" :src="data[0]" @playing="playing" @ended="ended"></audio>
     <lr-audio :url="data[0]"/>
     <div class="progress">
@@ -7,11 +7,15 @@
     </div>
     <div class="song-info">
       <div class="bar">
-        <img :src="data[1].picUrl" id="img" alt="" srcset=""/>
+                <el-image class="img" v-if="data[1].album" :src="data[1].album.picUrl"/>
+                <el-image class="img" v-else :src="data[1].al.picUrl"/>
         <div class="item">
           <span>{{ data[1].name }}</span>
-          <p>
-            <span v-for="item in data[1].song.artists " :key="item.name">{{ item.name }}</span>
+          <p v-if="data[1].ar">
+            <span v-for="item in data[1].ar " :key="item.name">{{ item.name }}</span>
+          </p>
+          <p v-else>
+            <span v-for="item in data[1].artists">{{ item.name }} dd</span>
           </p>
         </div>
       </div>
@@ -32,6 +36,7 @@
 
 <script>
 import lrAudio from "../components/lr-audio";
+import {getSearchUrl} from "../network/search";
 
 export default {
 
@@ -49,7 +54,18 @@ export default {
   },
   mounted() {
     this.$bus.$on('upData', (data) => {
-      this.data = data
+      console.log(data)
+      this.data[1] = data
+      this.$store.commit('musicInfo', data)
+      getSearchUrl(data.id).then(res => {
+        console.log(res)
+        res.data.data[0].url === null ? this.$message.error('歌曲链接为空，播放失败') : this.data[0] = res.data.data[0].url
+      }).catch(e => {
+        this.$message({
+          message: e
+        })
+      })
+      // this.data = data
     });
     document.onkeyup = (event) => {
       // key.preventDefault()
@@ -158,7 +174,7 @@ export default {
   /* position: relative; */
   z-index: 10;
   width: 100%;
-  /*height: 53px;*/
+  height: 60px;
   background-color: #fff;
   box-shadow: 0 0px 10px #ccc;
 }
@@ -189,7 +205,7 @@ export default {
   margin-top: 6px;
 }
 
-#img {
+.bar .img {
   float: left;
   width: 40px;
   height: 40px;

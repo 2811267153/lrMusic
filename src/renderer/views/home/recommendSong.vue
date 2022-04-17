@@ -34,38 +34,13 @@ export default {
   methods: {
     toPlayer(item) {
       if (this.timer) {
-        clearTimeout(this.timer)
         this.timer = null
       }
       this.timer = setTimeout(() => {
-        getSearchUrl(item.id).then(res => {
-          this.$bus.$emit('upData', [res.data.data[0].url, item,])
-        }).catch(e => {
-          this.$message({
-            message: e
-          })
-        })
+        this.$bus.$emit('upData', item)
       }, 300)
 
     },
-    addToPlay(item) {
-      if (this.timer) {
-        clearTimeout(this.timer)
-        this.timer = null
-      }
-
-      getSearchUrl(item.id).then(res => {
-        this.$store.commit('addToPlay', [res.data.data[0].url, item,])
-        console.log(this.$store.state)
-        this.$message({
-          message: '已将歌曲添加到播放列表中'
-        })
-      }).catch(e => {
-        this.$message({
-          message: e
-        })
-      })
-    }
   }
 
 }

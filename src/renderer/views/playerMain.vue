@@ -5,7 +5,8 @@
         {{getKeyArr}}
         <audio :src="musicInfo.url" @timeupdate="timeupdate"  ref="audio" ></audio>
         <p>{{musicInfo.info.name}}</p>
-        <p class="artists"><span v-for="item in musicInfo.info.song.artists">{{item.name}}</span></p>
+<!--        <p class="artists"><span v-for="item in musicInfo.info.song.artists">{{item.name}}</span></p>-->
+<!--        <p class="artists"><span v-else>{{item.name}}</span></p>-->
         <img :src="musicInfo.info.picUrl" alt="">
         <div class="music-btn">
         </div>

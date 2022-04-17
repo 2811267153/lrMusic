@@ -37,5 +37,6 @@ export default {
 .player{
   position: fixed;
   bottom: 0;
+  height: 60px;
 }
 </style>

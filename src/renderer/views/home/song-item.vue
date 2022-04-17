@@ -27,6 +27,7 @@ export default {
     getData(item, i){
       this.currentIndex = i
     },
+
   },
   components: {
     songItemInfo

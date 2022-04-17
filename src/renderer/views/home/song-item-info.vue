@@ -1,5 +1,5 @@
 <template>
-  <div class="song-item">
+  <div class="song-item"  @click="toPlayer(item)" @dblclick="addToPlay(item)">
 <!--    {{item}}-->
     <div class="item-l">
       <span>{{ i + 1 }}</span>
@@ -15,7 +15,6 @@
       </p>
     </div>
     <div class="item-r">
-<!--      <a><i>{{ names}}</i></a>-->
       <span>{{ item.dt || item.duration | rounding }}</span>
     </div>
   </div>
@@ -23,6 +22,7 @@
 
 <script>
 import {formatTime} from "../../util";
+import {getSearchUrl} from "../../network/search";
 
 export default {
   name: "song-item-info",
@@ -51,15 +51,40 @@ export default {
 
   computed: {
     showImg(){
-      // return  this.item.album.picUrl||  this.item.al.picUrl
-      console.log(this.item)
-      // return   this.item.album.picUrl || this.item.al.picUrl    || ""
-
       return this.item.album ===  undefined ? this.item.al.picUrl :   this.item.album.picUrl
     },
     names(){
-      // return  this.item.album.name ||  this.item.ar[0].name || ''
       return this.item.album === undefined?  this.item.album.name : this.item.ar[0].name
+    }
+  },
+  methods: {
+    toPlayer(item) {
+      if (this.timer) {
+        this.timer = null
+      }
+      this.$bus.$emit('upData', item)
+      this.timer = setTimeout(() => {
+      }, 300)
+
+    },
+    addToPlay(item) {
+      if (this.timer) {
+        clearTimeout(this.timer)
+        this.timer = null
+      }
+
+      getSearchUrl(item.id).then(res => {
+        this.$store.commit('addToPlay', [res.data.data[0].url, item,])
+
+        console.log(this.$store.state)
+        this.$message({
+          message: '已将歌曲添加到播放列表中'
+        })
+      }).catch(e => {
+        this.$message({
+          message: e
+        })
+      })
     }
   }
 }

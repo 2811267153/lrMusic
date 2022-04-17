@@ -9,7 +9,7 @@
 </template>
 
 <script>
-import navPath from "@/components/path";
+import navPath from '../components/path'
 export default {
   name: "playlist",
   components: {

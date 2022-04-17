@@ -19,68 +19,6 @@
         </div>
       </div>
     </div>
-<!--    <el-table-->
-<!--        v-show="all"-->
-<!--        :data="playList.tracks"-->
-<!--        stripe-->
-<!--        @cell-dblclick="cellClick"-->
-<!--        style="width: 100%">-->
-<!--      <el-table-column-->
-<!--          prop="name"-->
-<!--          label=""-->
-<!--          width="50">-->
-<!--        <template scope="scope">{{scope.$index + 1}}</template>-->
-<!--      </el-table-column>-->
-<!--      <el-table-column-->
-<!--          prop="name"-->
-<!--          label="标题"-->
-<!--          width="500">-->
-<!--      </el-table-column>-->
-<!--      <el-table-column-->
-<!--          prop="ar"-->
-<!--          label="歌手"-->
-<!--          width="400">-->
-<!--        <template scope="scope">-->
-<!--          <span class="ar-item" v-for="item in scope.row.ar">{{item.name}}</span>-->
-<!--        </template>-->
-<!--      </el-table-column>-->
-<!--      <el-table-column-->
-<!--          prop="al"-->
-<!--          label="专辑">-->
-<!--        <template scope="scope">{{scope.row.al.name}}</template>-->
-<!--      </el-table-column>-->
-<!--    </el-table>-->
-
-<!--    <el-table-->
-<!--        v-show="!all"-->
-<!--        :data="allPlayList"-->
-<!--        @cell-dblclick="cellClick"-->
-<!--        style="width: 100%">-->
-<!--      <el-table-column-->
-<!--          prop="name"-->
-<!--          label=""-->
-<!--          width="50">-->
-<!--        <template scope="scope">{{scope.$index + 1}}</template>-->
-<!--      </el-table-column>-->
-<!--      <el-table-column-->
-<!--          prop="name"-->
-<!--          label="标题"-->
-<!--          width="500">-->
-<!--      </el-table-column>-->
-<!--      <el-table-column-->
-<!--          prop="ar"-->
-<!--          label="歌手"-->
-<!--          width="400">-->
-<!--        <template scope="scope">-->
-<!--          <span class="ar-item" v-for="item in scope.row.ar">{{item.name}}</span>-->
-<!--        </template>-->
-<!--      </el-table-column>-->
-<!--      <el-table-column-->
-<!--          prop="al"-->
-<!--          label="专辑">-->
-<!--        <template scope="scope">{{scope.row.al.name}}</template>-->
-<!--      </el-table-column>-->
-<!--    </el-table>-->
 
     <song-item  :new-song-data="playList.tracks"/>
     <div  id="end-btn"><button @click="getAll" v-if="all">加载所有歌曲</button></div>
@@ -114,26 +52,26 @@ export default {
         this.playList = res.data["playlist"]
       })
     },
-    cellClick(row){
-      console.log(row)
-
-      const data = {
-        song:{}
-      }
-      data.name = row.name
-      data.picUrl= row.al.picUrl
-      data.song.artists  =row.ar
-      data.id = row.id
-      data.pid = this.id
-      getSearchUrl(row.id).then(res => {
-        this.$bus.$emit('upData', [res.data.data[0].url, data])
-        // console.log(res)
-      }).catch( e => {
-        this.$message({
-          message: e
-        })
-      })
-    },
+    // cellClick(row){
+    //   console.log(row)
+    //
+    //   const data = {
+    //     song:{}
+    //   }
+    //   data.name = row.name
+    //   data.picUrl= row.al.picUrl
+    //   data.song.artists  =row.ar
+    //   data.id = row.id
+    //   data.pid = this.id
+    //   getSearchUrl(row.id).then(res => {
+    //     this.$bus.$emit('upData', [res.data.data[0].url, data])
+    //     // console.log(res)
+    //   }).catch( e => {
+    //     this.$message({
+    //       message: e
+    //     })
+    //   })
+    // },
     getAll(){
       getResourceAll(this.id,this.limit, this.offset).then(res => {
         this.playList.tracks = res.data.songs
