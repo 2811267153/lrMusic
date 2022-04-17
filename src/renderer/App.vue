@@ -1,10 +1,14 @@
 <template>
   <div id="apps">
     <my-header @searchData="search"/>
-    <keep-alive >
-      <router-view v-if="$route.meta['keepAlive'] === true"/>
-    </keep-alive>
-    <router-view v-if="!$route.meta['keepAlive'] === true"/>
+    <nav-path>
+      <div class="context-container" slot="container-context">
+        <keep-alive >
+          <router-view v-if="$route.meta['keepAlive'] === true"/>
+        </keep-alive>
+        <router-view v-if="!$route.meta['keepAlive'] === true"/>
+      </div>
+    </nav-path>
 
     <player class="player"></player>
 
@@ -12,6 +16,7 @@
 </template>
 
 <script>
+import navPath from "./components/nav-path";
 import player from "./views/player";
 import myHeader from "./components/myHeader";
 export default {
@@ -21,7 +26,8 @@ export default {
   }),
   components: {
     myHeader,
-    player
+    player,
+    navPath
   },
   methods: {
     search(searchData){
@@ -36,7 +42,12 @@ export default {
 
 .player{
   position: fixed;
+  left: 0;
+  right: 0;
   bottom: 0;
   height: 60px;
+}
+.context-container{
+  width: 100%;
 }
 </style>

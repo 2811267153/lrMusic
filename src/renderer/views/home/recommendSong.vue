@@ -37,7 +37,15 @@ export default {
         this.timer = null
       }
       this.timer = setTimeout(() => {
-        this.$bus.$emit('upData', item)
+        getSearchUrl(item.id).then(res => {
+          item.url = res.data.data[0].url
+        }).catch(e => {
+          this.$message({
+            message: e
+          })
+        })
+        this.$bus.$emit('upData')
+        this.$store.commit('musicInfo', item)
       }, 300)
 
     },

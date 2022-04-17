@@ -1,6 +1,5 @@
 <template>
   <div class="song-item"  @click="toPlayer(item)" @dblclick="addToPlay(item)">
-<!--    {{item}}-->
     <div class="item-l">
       <span>{{ i + 1 }}</span>
       <el-image class="el-img" :src="showImg" :lazy="true"></el-image>
@@ -17,6 +16,7 @@
     <div class="item-r">
       <span>{{ item.dt || item.duration | rounding }}</span>
     </div>
+
   </div>
 </template>
 
@@ -51,7 +51,9 @@ export default {
 
   computed: {
     showImg(){
+      console.log(this.item)
       return this.item.album ===  undefined ? this.item.al.picUrl :   this.item.album.picUrl
+
     },
     names(){
       return this.item.album === undefined?  this.item.album.name : this.item.ar[0].name
@@ -62,10 +64,19 @@ export default {
       if (this.timer) {
         this.timer = null
       }
-      this.$bus.$emit('upData', item)
-      this.timer = setTimeout(() => {
-      }, 300)
+      const data = {}
+      console.log(item)
+      data.alg = item.al.name
+      data.id = item.id
+      data.name = item.name
+      data.picUrl = item.al.picUrl
+      data.song = item.ar
+      getSearchUrl(item.id).then(res => {
+        data.url = res.data.data[0].url
+      })
 
+      this.$bus.$emit('upData')
+      this.$store.commit('musicInfo', data)
     },
     addToPlay(item) {
       if (this.timer) {
@@ -103,6 +114,7 @@ export default {
   color: #cccccc;
   align-items: center;
 }
+
 .item-info, .item-r{
   width: 190px;
   white-space: nowrap;

@@ -8,7 +8,8 @@ export default new Vuex.Store({
   state: {
     addToPlayList: [],
     isLoading: false,
-    musicInfo: {}
+    musicInfo: [],
+    music: {}
   },
   mutations: {
     addToPlay(state, playList){
@@ -16,7 +17,13 @@ export default new Vuex.Store({
       console.log(state.addToPlayList)
     },
     musicInfo(state, musicInfo){
-      state.musicInfo = musicInfo
+      state.musicInfo.push(musicInfo)
+    },
+    musicInfos(state, musicInfo){
+      state.musicInfos = (musicInfo)
+    },
+    music(context, value){
+      context.music = value
     }
   }
 })

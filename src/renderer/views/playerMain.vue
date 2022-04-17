@@ -3,11 +3,9 @@
     <div class="player-body">
       <div class="player-info">
         {{getKeyArr}}
-        <audio :src="musicInfo.url" @timeupdate="timeupdate"  ref="audio" ></audio>
-        <p>{{musicInfo.info.name}}</p>
-<!--        <p class="artists"><span v-for="item in musicInfo.info.song.artists">{{item.name}}</span></p>-->
-<!--        <p class="artists"><span v-else>{{item.name}}</span></p>-->
-        <img :src="musicInfo.info.picUrl" alt="">
+        <audio :src="musicInfo.url"  ref="audio" ></audio>
+        <p>{{musicInfo.name}}</p>
+        <img :src="musicInfo.picUrl" alt="">
         <div class="music-btn">
         </div>
         <div class="blank"></div>
@@ -42,26 +40,22 @@ export default {
   name: "playerMain",
   data(){
     return {
-      musicInfo: {},
+      musicInfo:[],
       lrc: {},
       currentTime: 0,
       KeyArr: []
     }
   },
   created() {
-    this.musicInfo = this.$store.state.musicInfo
+    this.musicInfo = this.$store.state.music
     console.log(this.musicInfo)
-    this._getSongLyric(this.musicInfo.info.id)
+    this._getSongLyric(this.musicInfo.id)
     setInterval(() => {
-      this.currentTime = this.$store.state.musicInfo.currentTime
+      this.currentTime = this.$store.state.music.currentTime
       this.duration = this.$store.state.musicInfo.duration
     }, 100)
   },
-  mounted() {
-    console.log( this.musicInfo)
-    // this.$refs.audio.currentTime =  this.musicInfo.currentTime
-    // Object.keys(this.musicInfo).length ===  0 ?   this.$router.back() :
-  },
+
   methods: {
     goBack(){
       this.$router.back()
@@ -82,13 +76,11 @@ export default {
             let sec = Number(String(t.match(/\:\d*/i)).slice(1))
             let time = min * 60 + sec
             lycObj[time] = claue
-            // console.log( time +'----------' +lycObj[time])
             this.lrc = lycObj
 
           }
         }
       }).catch(e => {
-        console.log(e)
         this.$message.error('请求失败 请重试');
       })
     },
@@ -100,7 +92,7 @@ export default {
     },
     _getCloudSongs(){
       getCloudSongs().then(res => {
-        console.log(res)
+        // console.log(res)
       })
     },
     timeupdate(){
@@ -123,10 +115,19 @@ export default {
       return (this.currentTime)
     }
   },
+  mounted() {
+    //监听歌曲是否发生更改 如果发生更改 则更新页面数据
+    this.$bus.$on('upCurrentMusic', () => {
+      this.musicInfo = this.$store.state.music
+      this._getSongLyric(this.musicInfo.id)
+
+    })
+  },
+
   filters: {
     rounding(value){
       return  formatTime(value)
-  }
+  },
 }}
 </script>
 
@@ -134,10 +135,6 @@ export default {
 #player {
   height: calc(100vh - 90px);
   overflow: hidden;
-}
-.nav-top {
-  padding: 15px 20px ;
-  box-shadow: 0 0 15px #ccc;
 }
 .nav-top span{
   cursor: pointer;
@@ -149,7 +146,7 @@ export default {
   display: flex;
   justify-content: space-between;
   padding: 50px;
-
+  width: 100%;
 }
 .player-body > div{
   flex: 1;

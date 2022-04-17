@@ -1,7 +1,6 @@
 <template>
 	<div id="home">
 		<div class="main">
-      <nav-path class="path"></nav-path>
 			<div v-if="Object.keys(songsData).length !== 0" class="container">
         <div class="container-item" v-for="(item, i) in songsData.songs" @click="songPlayer(item)">
           <div class="index">{{i}}</div>
@@ -28,7 +27,7 @@
 </template>
 
 <script>
-import navPath from "../components/path";
+import navPath from "../components/nav-path";
 import {getSearchUrl} from "../network/search";
 export default {
 	name: "Home",
@@ -82,11 +81,10 @@ export default {
   display: flex;
   background-color: #fff;
 }
-.path{
+.nav-path{
   position: relative;
   background-color: #fff;
   width: 300px;
-
 }
 
 .container {

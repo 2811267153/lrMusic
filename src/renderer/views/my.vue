@@ -8,7 +8,7 @@
 </template>
 
 <script>
-import navPath from '../components/path'
+import navPath from '../components/nav-path'
 export default {
   name: "my",
   components: {

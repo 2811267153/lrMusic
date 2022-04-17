@@ -27,7 +27,9 @@ export default {
     getData(item, i){
       this.currentIndex = i
     },
-
+  },
+  created() {
+    console.log(this.newSongData)
   },
   components: {
     songItemInfo
